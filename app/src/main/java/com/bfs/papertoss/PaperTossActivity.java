@@ -19,13 +19,11 @@ import com.iscle.papertoss.R;
 /* loaded from: classes.dex */
 public class PaperTossActivity extends Activity {
     private static final String TAG = "PaperTossActivity";
-    private static final long STARTUP_INTERSTITIAL_PAUSE_INTERVAL = 300000;
     private ExitPressed exitPressed;
     private PapertossGLSurfaceView m_glView = null;
     private ImageView m_splashImage = null;
     private RelativeLayout m_layout = null;
     private boolean m_startedGame = false;
-    private long m_pauseTime = 0;
 
     public PaperTossActivity() {
         this.exitPressed = new ExitPressed();
@@ -38,7 +36,6 @@ public class PaperTossActivity extends Activity {
         Globals.m_activity = this;
         buildUserInterface();
         this.m_startedGame = false;
-        this.m_pauseTime = 0L;
     }
 
     protected void buildUserInterface() {
@@ -84,7 +81,6 @@ public class PaperTossActivity extends Activity {
     public void onPause() {
         Log.i(TAG, "PaperTossActivity.onPause");
         super.onPause();
-        this.m_pauseTime = System.currentTimeMillis();
         if (this.m_glView != null) {
             this.m_glView.onPause();
             this.m_glView.queueEvent(new Runnable() { // from class: com.bfs.papertoss.PaperTossActivity.2

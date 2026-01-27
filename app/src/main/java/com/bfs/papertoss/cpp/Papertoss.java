@@ -1,5 +1,6 @@
 package com.bfs.papertoss.cpp;
 
+import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
 import com.bfs.papertoss.platform.Globals;
@@ -227,7 +228,7 @@ public class Papertoss {
                     if (offset.y == -1.0f) {
                         offset.y = 0.0f;
                     } else {
-                        offset.x = (float) (offset.x - (960.0d * elapsed));
+                        offset.x = (float) (offset.x - (TRANSITION_SPEED * elapsed));
                     }
                     if ((offset.x <= -320.0f && !Globals.HI_RES) || (offset.x <= -294.25f && Globals.HI_RES)) {
                         if (state == GameState.MENU_TO_SCORE) {
@@ -248,7 +249,7 @@ public class Papertoss {
                     if (offset.y == -1.0f) {
                         offset.y = 0.0f;
                     } else {
-                        offset.x = (float) (offset.x + (960.0d * elapsed));
+                        offset.x = (float) (offset.x + (TRANSITION_SPEED * elapsed));
                     }
                     if (offset.x >= 0.0f) {
                         state = GameState.MENU;
@@ -313,7 +314,7 @@ public class Papertoss {
                 case 7:
                     float ortho_width = 320.0f;
                     if (Globals.HI_RES) {
-                        ortho_width = 294.25287f;
+                        ortho_width = Config.ADJUSTED_ORTHO_WIDTH;
                     }
                     menu.render(offset);
                     score_menu.render(offset.plus(new v2f(ortho_width, 0.0f)));
@@ -322,7 +323,7 @@ public class Papertoss {
                 case 6:
                     float ortho_width2 = 320.0f;
                     if (Globals.HI_RES) {
-                        ortho_width2 = 294.25287f;
+                        ortho_width2 = Config.ADJUSTED_ORTHO_WIDTH;
                     }
                     menu.render(offset);
                     level.render(offset.plus(new v2f(ortho_width2, 0.0f)));
@@ -366,7 +367,7 @@ public class Papertoss {
             Globals.GL.glMatrixMode(5889);
             Globals.GL.glLoadIdentity();
             if (Globals.HI_RES) {
-                Globals.GL.glOrthof(12.873565f, 307.12643f, 0.0f, 480.0f, 0.0f, 450.0f);
+                Globals.GL.glOrthof(Config.ORTHO_ADJUSTMENT_F, 307.12643f, 0.0f, 480.0f, 0.0f, 450.0f);
             } else {
                 Globals.GL.glOrthof(0.0f, 320.0f, 0.0f, 480.0f, 0.0f, 450.0f);
             }

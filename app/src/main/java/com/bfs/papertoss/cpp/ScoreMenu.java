@@ -1,6 +1,7 @@
 package com.bfs.papertoss.cpp;
 
 import com.bfs.papertoss.PaperTossApplication;
+import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
 import com.bfs.papertoss.vector.v2f;
@@ -87,7 +88,7 @@ public class ScoreMenu {
     void setBest(int level, int score) {
         if (!this.m_score_pos[level].equals(new v3f(0.0f, 0.0f, 0.0f))) {
             Sprite.killSprite(this.m_score[level]);
-            this.m_score[level] = new Sprite(24, SCORE_GLYPH_OFFSET, SCORE_FONT, "" + score, SCORE_COLOR, 0);
+            this.m_score[level] = new Sprite(SCORE_FONT_SIZE, SCORE_GLYPH_OFFSET, SCORE_FONT, "" + score, SCORE_COLOR, 0);
         }
     }
 
@@ -110,7 +111,7 @@ public class ScoreMenu {
     public void unDestroy() {
         this.m_background = new Sprite(this.m_background_filename);
         for (int i = 0; i < LevelDefs.NUM_LEVELS; i++) {
-            this.m_score[i] = new Sprite(24, SCORE_GLYPH_OFFSET, SCORE_FONT, "" + Scores.readBest(i), SCORE_COLOR, 0);
+            this.m_score[i] = new Sprite(SCORE_FONT_SIZE, SCORE_GLYPH_OFFSET, SCORE_FONT, "" + Scores.readBest(i), SCORE_COLOR, 0);
         }
     }
 
@@ -120,7 +121,7 @@ public class ScoreMenu {
     void render(v2f offset) {
         try {
             v3f o = new v3f(offset.x, offset.y, 0.0f);
-            this.m_background.draw(new v3f(160.0f, 240.0f, 449.9f).plus(o), new v2f(1.0f, 1.0f), new v3f(0.0f, 0.0f, 0.0f), new v4f(1.0f, 1.0f, 1.0f, 1.0f));
+            this.m_background.draw(new v3f(160.0f, 240.0f, Config.BACKGROUND_DEPTH).plus(o), new v2f(1.0f, 1.0f), new v3f(0.0f, 0.0f, 0.0f), new v4f(1.0f, 1.0f, 1.0f, 1.0f));
             for (int i = 0; i < LevelDefs.NUM_LEVELS; i++) {
                 if (this.m_score[i] != null) {
                     int x = (int) o.x;

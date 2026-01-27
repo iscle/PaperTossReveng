@@ -1,6 +1,7 @@
 package com.bfs.papertoss.cpp;
 
 import com.bfs.papertoss.PaperTossApplication;
+import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
 import com.bfs.papertoss.platform.Globals;
@@ -305,7 +306,7 @@ public class Menu {
         v2f s = new v2f(NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR);
         v3f r = new v3f(0.0f, 0.0f, 0.0f);
         try {
-            this.m_background.draw(new v3f(160.0f, 240.0f, 449.9f).plus(o));
+            this.m_background.draw(new v3f(160.0f, 240.0f, Config.BACKGROUND_DEPTH).plus(o));
             this.m_scores.draw(this.m_scores_pos.plus(o), s, r, this.m_scores_color);
             this.m_sound.draw(SOUND_POS.plus(o), s, r, this.m_sound_color);
             this.m_exit.draw(EXIT_POS.plus(o), s, r, this.m_exit_color);

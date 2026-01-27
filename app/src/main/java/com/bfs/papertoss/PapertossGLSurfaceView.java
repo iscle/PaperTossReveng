@@ -5,6 +5,7 @@ import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.vector.v2f;
@@ -28,7 +29,7 @@ public class PapertossGLSurfaceView extends GLSurfaceView {
             float x2 = event.getX();
             float y = Globals.SURFACE_H - event.getY();
             if (Globals.HI_RES) {
-                x = Globals.VIEWPORT_X + 12.873565f + ((294.25287f / Globals.VIEWPORT_W) * x2);
+                x = Globals.VIEWPORT_X + Config.ORTHO_ADJUSTMENT_F + ((Config.ADJUSTED_ORTHO_WIDTH / Globals.VIEWPORT_W) * x2);
             } else {
                 x = Globals.VIEWPORT_X + ((320.0f / Globals.VIEWPORT_W) * x2);
             }

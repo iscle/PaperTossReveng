@@ -2,13 +2,12 @@ package com.bfs.papertoss;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.platform.SaveData;
 import com.bfs.papertoss.platform.SoundMgr;
@@ -22,7 +21,6 @@ import java.util.HashMap;
 public class PaperTossApplication extends Application {
     private static final String TAG = "PaperTossApplication";
     private static PaperTossApplication m_instance = null;
-    private int m_runCount = 0;
 
     public PaperTossApplication() {
         m_instance = this;
@@ -42,7 +40,7 @@ public class PaperTossApplication extends Application {
             Globals.soundMgr = new SoundMgr();
         }
         Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        if (display.getHeight() > 480) {
+        if (display.getHeight() > Config.SCREEN_HEIGHT) {
             Globals.HI_RES = true;
             Globals.SCALE_FACTOR = 0.613027f;
         } else {
@@ -50,16 +48,6 @@ public class PaperTossApplication extends Application {
             Globals.SCALE_FACTOR = 1.0f;
         }
         SaveData.load();
-        try {
-            PackageManager pm = getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
-            String VersionName = pi.versionName;
-            this.m_runCount = SaveData.read(0, VersionName, "STARTS");
-            this.m_runCount++;
-            SaveData.write(Integer.valueOf(this.m_runCount), VersionName, "STARTS");
-        } catch (Exception e) {
-            Log.e(TAG, "PaperTossApplication.onCreate", e);
-        }
         Globals.STARTS_ANY_VERSION = SaveData.read(0, "STARTS_ANY_VERSION");
         Globals.STARTS_ANY_VERSION++;
         SaveData.write(Integer.valueOf(Globals.STARTS_ANY_VERSION), "STARTS_ANY_VERSION");

@@ -1,6 +1,7 @@
 package com.bfs.papertoss.cpp;
 
 import com.bfs.papertoss.PaperTossApplication;
+import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
 import com.bfs.papertoss.platform.Globals;
@@ -902,7 +903,7 @@ public class Level {
             v2f s = DEFAULT_SCALE;
             v3f r = DEFAULT_ROT;
             RenderInfoQueue render_queue = new RenderInfoQueue();
-            render_queue.add(new RenderInfo(this.m_background, new v3f(160.0f, BALL_CURVE, 449.9f)));
+            render_queue.add(new RenderInfo(this.m_background, new v3f(160.0f, BALL_CURVE, Config.BACKGROUND_DEPTH)));
             if (!this.USE_SWIPE) {
                 if (this.m_state == State.INPUT) {
                     v2f arrow_dir = new v2f(0.0f, ARROW_OFFSET).rotated(Util.radians(this.m_arrow_rot));
@@ -918,7 +919,7 @@ public class Level {
                 LevelDefs.WindAnim wi = this.m_info.wind[this.m_active_wind][a];
                 if (wi.scroll.equalsZero()) {
                     render_queue.add(new RenderInfo(this.m_wind[this.m_active_wind][a], wi.pos, wi.scale));
-                } else if (wi.pos.z < 449.9f) {
+                } else if (wi.pos.z < Config.BACKGROUND_DEPTH) {
                     v2f scroll = this.m_wind_scroll[this.m_active_wind][a];
                     float alpha_i = wi.scroll.x != 0.0f ? Math.abs(scroll.x) / wi.scroll.x : this.m_wind_accel_rate / MAX_WIND;
                     float alpha = wi.alpha_range.x + ((wi.alpha_range.y - wi.alpha_range.x) * alpha_i);
