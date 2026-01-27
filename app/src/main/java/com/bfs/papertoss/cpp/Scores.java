@@ -1,8 +1,6 @@
 package com.bfs.papertoss.cpp;
 
 import com.bfs.papertoss.platform.SaveData;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 /* loaded from: classes.dex */
 public class Scores {
@@ -17,16 +15,25 @@ public class Scores {
     public static void init() {
     }
 
-    public static void saveBest(int score, int levelIndex) throws NoSuchAlgorithmException, IOException {
-        SaveData.obfuscatedWrite(score, keyForLevel(levelIndex));
-        SaveData.save();
+    public static void saveBest(int score, int levelIndex) {
+        try {
+            SaveData.obfuscatedWrite(score, keyForLevel(levelIndex));
+            SaveData.save();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static int readBest(int levelIndex) {
-        return SaveData.obfuscatedRead(0, keyForLevel(levelIndex));
+        try {
+            return SaveData.obfuscatedRead(0, keyForLevel(levelIndex));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
-    public static void saveSubmitted(int score, int levelIndex) throws IOException {
+    public static void saveSubmitted(int score, int levelIndex) {
         SaveData.write(Integer.valueOf(score), oldStyleKey(levelIndex), "submitted");
         SaveData.save();
     }

@@ -2,8 +2,10 @@ package com.bfs.papertoss.platform;
 
 import android.content.Context;
 import android.os.Handler;
+
 import com.bfs.papertoss.PaperTossActivity;
 import com.bfs.papertoss.cpp.TextureMgr;
+
 import javax.microedition.khronos.opengles.GL10;
 
 /* loaded from: classes.dex */
@@ -23,5 +25,4 @@ public class Globals {
     public static Handler mainHandler = null;
     public static SoundMgr soundMgr = null;
     public static int STARTS_ANY_VERSION = 0;
-    public static boolean PAPAYA_SHOW = false;
 }

@@ -22,26 +22,16 @@ public class Evt {
         return m_instance;
     }
 
-    public void subscribe(String event_name, EvtListener listener) throws Throwable {
-        ArrayList<EvtListener> list;
+    public void subscribe(String event_name, EvtListener listener) {
         synchronized (this.m_listeners) {
-            try {
-                if (this.m_listeners.containsKey(event_name)) {
-                    list = this.m_listeners.get(event_name);
-                } else {
-                    ArrayList<EvtListener> list2 = new ArrayList<>();
-                    try {
-                        this.m_listeners.put(event_name, list2);
-                        list = list2;
-                    } catch (Throwable th) {
-                        th = th;
-                        throw th;
-                    }
-                }
-                list.add(listener);
-            } catch (Throwable th2) {
-                th = th2;
+            ArrayList<EvtListener> list;
+            if (this.m_listeners.containsKey(event_name)) {
+                list = this.m_listeners.get(event_name);
+            } else {
+                list = new ArrayList<>();
+                this.m_listeners.put(event_name, list);
             }
+            list.add(listener);
         }
     }
 
@@ -67,7 +57,7 @@ public class Evt {
                 ArrayList<EvtListener> list = this.m_listeners.get(event_name);
                 Iterator i$ = list.iterator();
                 while (i$.hasNext()) {
-                    EvtListener listener = i$.next();
+                    EvtListener listener = (EvtListener) i$.next();
                     listener.run(object);
                 }
             }

@@ -1,6 +1,5 @@
 package com.bfs.papertoss.cpp;
 
-import com.bfs.papertoss.cpp.LevelDefs;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
 import com.bfs.papertoss.platform.Globals;
@@ -8,9 +7,6 @@ import com.bfs.papertoss.platform.SaveData;
 import com.bfs.papertoss.platform.Util;
 import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v3f;
-import com.millennialmedia.android.R;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 /* loaded from: classes.dex */
 public class Papertoss {
@@ -72,7 +68,7 @@ public class Papertoss {
         }
 
         @Override // com.bfs.papertoss.platform.EvtListener
-        public void run(Object o) throws NoSuchAlgorithmException, IOException {
+        public void run(Object o) {
             int score = ((Integer) o).intValue();
             Papertoss.menu.setBest(Papertoss.current_level, score);
             Papertoss.score_menu.setBest(Papertoss.current_level, score);
@@ -100,7 +96,7 @@ public class Papertoss {
         }
 
         @Override // com.bfs.papertoss.platform.EvtListener
-        public void run(Object object) throws IOException {
+        public void run(Object object) {
             boolean on = ((Boolean) object).booleanValue();
             SaveData.write(Boolean.valueOf(on), "sound");
             SaveData.save();
@@ -116,7 +112,7 @@ public class Papertoss {
         }
 
         @Override // com.bfs.papertoss.platform.EvtListener
-        public void run(Object object) throws IOException {
+        public void run(Object object) {
             Scores.saveSubmitted(Scores.readBest(Papertoss.current_level), Papertoss.current_level);
         }
     }
@@ -130,7 +126,7 @@ public class Papertoss {
         }
 
         @Override // com.bfs.papertoss.platform.EvtListener
-        public void run(Object object) throws IOException {
+        public void run(Object object) {
             SaveData.write(true, "tutorial_shown");
             SaveData.save();
             Papertoss.level_info[0].tutorial_image = null;
@@ -231,7 +227,7 @@ public class Papertoss {
                     if (offset.y == -1.0f) {
                         offset.y = 0.0f;
                     } else {
-                        offset.x = (float) (r0.x - (960.0d * elapsed));
+                        offset.x = (float) (offset.x - (960.0d * elapsed));
                     }
                     if ((offset.x <= -320.0f && !Globals.HI_RES) || (offset.x <= -294.25f && Globals.HI_RES)) {
                         if (state == GameState.MENU_TO_SCORE) {
@@ -248,11 +244,11 @@ public class Papertoss {
                     }
                     break;
                 case 6:
-                case R.styleable.MMAdView_gender /* 7 */:
+                case 7:
                     if (offset.y == -1.0f) {
                         offset.y = 0.0f;
                     } else {
-                        offset.x = (float) (r0.x + (960.0d * elapsed));
+                        offset.x = (float) (offset.x + (960.0d * elapsed));
                     }
                     if (offset.x >= 0.0f) {
                         state = GameState.MENU;
@@ -314,7 +310,7 @@ public class Papertoss {
                     score_menu.render(new v2f(0.0f, 0.0f));
                     break;
                 case 4:
-                case R.styleable.MMAdView_gender /* 7 */:
+                case 7:
                     float ortho_width = 320.0f;
                     if (Globals.HI_RES) {
                         ortho_width = 294.25287f;
@@ -379,7 +375,7 @@ public class Papertoss {
         }
     }
 
-    public static boolean initialize() throws Throwable {
+    public static boolean initialize() {
         Globals.GL.glCullFace(1029);
         Globals.GL.glPointSize(5.0f);
         Globals.GL.glEnable(3042);

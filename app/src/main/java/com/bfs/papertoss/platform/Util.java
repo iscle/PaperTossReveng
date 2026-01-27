@@ -1,6 +1,7 @@
 package com.bfs.papertoss.platform;
 
 import android.app.ActivityManager;
+import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,8 +9,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.Log;
-import com.bfs.papertoss.R;
+
 import com.bfs.papertoss.vector.v4f;
+import com.iscle.papertoss.R;
+
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -31,7 +34,7 @@ public class Util {
         return true;
     }
 
-    public static boolean requiresPowerOfTwo() throws IllegalAccessException, NoSuchFieldException, IllegalArgumentException {
+    public static boolean requiresPowerOfTwo() throws IllegalArgumentException {
         String result;
         String result2;
         if (m_requires_pot != -1) {
@@ -57,7 +60,7 @@ public class Util {
         map.put("PVRTC", result2);
         String version = Globals.GL.glGetString(7938);
         try {
-            ActivityManager am = (ActivityManager) Globals.m_activity.getSystemService("activity");
+            ActivityManager am = (ActivityManager) Globals.m_activity.getSystemService(Context.ACTIVITY_SERVICE);
             ConfigurationInfo info = am.getDeviceConfigurationInfo();
             Class c = info.getClass();
             Field f = c.getField("reqGlEsVersion");

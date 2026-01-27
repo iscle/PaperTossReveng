@@ -4,6 +4,7 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.MotionEvent;
+
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.vector.v2f;
@@ -21,7 +22,7 @@ public class PapertossGLSurfaceView extends GLSurfaceView {
     }
 
     @Override // android.view.View
-    public boolean onTouchEvent(MotionEvent event) throws InterruptedException {
+    public boolean onTouchEvent(MotionEvent event) {
         float x;
         try {
             float x2 = event.getX();
@@ -50,14 +51,11 @@ public class PapertossGLSurfaceView extends GLSurfaceView {
                     break;
             }
             final String finalEventName = eventName;
-            queueEvent(new Runnable() { // from class: com.bfs.papertoss.PapertossGLSurfaceView.1
-                @Override // java.lang.Runnable
-                public void run() {
-                    try {
-                        PapertossGLSurfaceView.this.evt.publish(finalEventName, point);
-                    } catch (Exception e) {
-                        PaperTossApplication.logErrorWithFlurry("onTouchEvent", e, "PapertossGLSurfaceView");
-                    }
+            queueEvent(() -> {
+                try {
+                    PapertossGLSurfaceView.this.evt.publish(finalEventName, point);
+                } catch (Exception e) {
+                    PaperTossApplication.logErrorWithFlurry("onTouchEvent", e, "PapertossGLSurfaceView");
                 }
             });
         } catch (Exception e1) {

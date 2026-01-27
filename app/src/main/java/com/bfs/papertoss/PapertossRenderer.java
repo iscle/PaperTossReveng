@@ -1,16 +1,19 @@
 package com.bfs.papertoss;
 
 import android.opengl.GLSurfaceView;
-import com.backflipstudios.android.debug.BFSDebug;
+import android.util.Log;
+
 import com.bfs.papertoss.cpp.Papertoss;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.platform.Util;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /* loaded from: classes.dex */
 public class PapertossRenderer implements GLSurfaceView.Renderer {
+    private static final String TAG = "PapertossRenderer";
     double m_time = Util.getTime();
 
     @Override // android.opengl.GLSurfaceView.Renderer
@@ -32,7 +35,7 @@ public class PapertossRenderer implements GLSurfaceView.Renderer {
 
     @Override // android.opengl.GLSurfaceView.Renderer
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-        BFSDebug.i("PaperTossRenderer.onSurfaceChanged(): " + width + "x" + height);
+        Log.i(TAG, "PaperTossRenderer.onSurfaceChanged(): " + width + "x" + height);
         Globals.GL = gl;
         Globals.VIEWPORT_W = width;
         Globals.VIEWPORT_H = height;
@@ -47,7 +50,7 @@ public class PapertossRenderer implements GLSurfaceView.Renderer {
     }
 
     @Override // android.opengl.GLSurfaceView.Renderer
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) throws Throwable {
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         try {
             Globals.GL = gl;
             Papertoss.initialize();
@@ -58,7 +61,7 @@ public class PapertossRenderer implements GLSurfaceView.Renderer {
                 Globals.first_launch = false;
             }
         } catch (Exception e) {
-            BFSDebug.e("PaperTossRenderer.onSurfaceCreated", e);
+            Log.e(TAG, "PaperTossRenderer.onSurfaceCreated", e);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.bfs.papertoss.cpp;
 
 import com.bfs.papertoss.PaperTossApplication;
-import com.bfs.papertoss.cpp.LevelDefs;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
 import com.bfs.papertoss.platform.Globals;
@@ -11,6 +10,7 @@ import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
+
 import java.lang.reflect.Array;
 import java.util.HashMap;
 
@@ -421,7 +421,7 @@ public class Level {
         }
     }
 
-    public Level() throws Throwable {
+    public Level() {
         this.m_active_wind = 1;
         this.m_bounce = true;
         this.m_swiping = true;
@@ -632,8 +632,8 @@ public class Level {
         Code decompiled incorrectly, please refer to instructions dump.
     */
     void update(float elapsed) {
-        boolean splash_left;
-        boolean splash_right;
+        boolean splash_left = false;
+        boolean splash_right = false;
         float x;
         float i;
         Evt evt = Evt.getInstance();

@@ -4,7 +4,9 @@ import android.media.AsyncPlayer;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
-import com.bfs.papertoss.R;
+
+import com.iscle.papertoss.R;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -23,7 +25,7 @@ public class SoundMgr {
     SoundPool soundPool = new SoundPool(5, 3, 0);
     HashMap<String, Integer> map = new HashMap<>();
 
-    public SoundMgr() throws Throwable {
+    public SoundMgr() {
         this.playSound = new PlaySound();
         this.backgroundSound = new BackgroundSound();
         this.setSound = new SetSound();
@@ -33,7 +35,7 @@ public class SoundMgr {
         Evt.getInstance().subscribe("setSound", this.setSound);
     }
 
-    private void preloadAllSounds() throws IOException {
+    private void preloadAllSounds() {
         try {
             String[] filenames = Globals.m_context.getAssets().list("sounds");
             for (String filename : filenames) {

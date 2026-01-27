@@ -1,10 +1,10 @@
 package com.bfs.papertoss.platform;
 
 import android.util.Log;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
@@ -37,7 +37,7 @@ public class SaveData {
         return new_group;
     }
 
-    public static boolean load() throws IOException {
+    public static boolean load() {
         modified = false;
         FileInputStream input_stream = null;
         try {
@@ -59,7 +59,7 @@ public class SaveData {
         return false;
     }
 
-    public static void save() throws IOException {
+    public static void save() {
         if (save_data != null && modified) {
             try {
                 FileOutputStream output_stream = Globals.m_context.openFileOutput(SAVE_FILE, 0);

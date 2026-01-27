@@ -1,7 +1,5 @@
 package com.bfs.papertoss.cpp;
 
-import android.content.Intent;
-import com.backflipstudios.android.web.BFSWebViewActivity;
 import com.bfs.papertoss.PaperTossApplication;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
@@ -9,6 +7,7 @@ import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
+
 import java.util.HashMap;
 
 /* loaded from: classes.dex */
@@ -33,9 +32,6 @@ public class Menu {
     int m_destroy_state;
     v4f m_exit_color;
     float m_new_level_timer;
-    Sprite m_papaya_btn;
-    Sprite m_privacy_btn;
-    v4f m_privacy_btn_color;
     v4f m_scores_color;
     String m_scores_filename;
     v3f m_scores_pos;
@@ -44,8 +40,6 @@ public class Menu {
     OnPtrUp onPtrUp;
     static final float NEW_LEVEL_BLINK_DUR = 1.0f;
     static final v4f GREYED_OUT_COLOR = new v4f(0.33f, 0.33f, 0.33f, NEW_LEVEL_BLINK_DUR);
-    static v3f PRIVACY_BTN_POS = new v3f(76.0f, 65.0f);
-    static v4f PRIVACY_BTN_COLOR = new v4f(NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR);
     static final v4f UNSELECTION_COLOR = new v4f(NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR);
     Sprite[] m_level_button = new Sprite[LevelDefs.NUM_LEVELS];
     Sprite[] m_level_score = new Sprite[LevelDefs.NUM_LEVELS];
@@ -66,19 +60,17 @@ public class Menu {
     int m_new_level = -1;
     boolean m_sound_on = false;
 
-    public Menu() throws Throwable {
+    public Menu() {
         this.m_scores_pos = new v3f();
         this.m_scores_color = new v4f();
         this.m_sound_color = new v4f();
         this.m_exit_color = new v4f();
-        this.m_privacy_btn_color = new v4f();
         this.onPtrDown = new OnPtrDown();
         this.onPtrUp = new OnPtrUp();
         this.m_scores_pos = new v3f(0.0f, 0.0f, 0.0f);
         this.m_scores_color = new v4f(NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR);
         this.m_sound_color = SOUND_COLOR;
         this.m_exit_color = EXIT_COLOR;
-        this.m_privacy_btn_color = new v4f(NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR);
         EXIT_COLOR = new v4f(NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR, NEW_LEVEL_BLINK_DUR);
         SOUND_COLOR = new v4f(NEW_LEVEL_BLINK_DUR, 0.0f, 0.0f, NEW_LEVEL_BLINK_DUR);
         if (Globals.HI_RES) {
@@ -149,8 +141,6 @@ public class Menu {
                         Menu.this.m_sound_color = new v4f(0.5f, 0.5f, 0.5f, Menu.NEW_LEVEL_BLINK_DUR).times(Menu.SOUND_COLOR);
                     } else if (Menu.this.m_exit != null && Menu.this.m_exit.checkPoint(Menu.EXIT_POS, v, Menu.NEW_LEVEL_BLINK_DUR)) {
                         Menu.this.m_exit_color = new v4f(0.5f, 0.5f, 0.5f, Menu.NEW_LEVEL_BLINK_DUR).times(Menu.EXIT_COLOR);
-                    } else if (Menu.this.m_privacy_btn != null && Menu.this.m_privacy_btn.checkPoint(Menu.PRIVACY_BTN_POS, v, Menu.NEW_LEVEL_BLINK_DUR)) {
-                        Menu.this.m_privacy_btn_color = new v4f(0.5f, 0.5f, 0.5f, Menu.NEW_LEVEL_BLINK_DUR).times(Menu.PRIVACY_BTN_COLOR);
                     }
                 }
             }
@@ -170,7 +160,6 @@ public class Menu {
             Menu.this.m_scores_color = new v4f(Menu.NEW_LEVEL_BLINK_DUR, Menu.NEW_LEVEL_BLINK_DUR, Menu.NEW_LEVEL_BLINK_DUR, Menu.NEW_LEVEL_BLINK_DUR);
             Menu.this.m_sound_color = Menu.SOUND_COLOR;
             Menu.this.m_exit_color = Menu.EXIT_COLOR;
-            Menu.this.m_privacy_btn_color = Menu.PRIVACY_BTN_COLOR;
             if (Menu.this.m_state == 1) {
                 v2f v = (v2f) object;
                 if (Menu.this.m_selected_level != -1 && Menu.this.m_level_button[Menu.this.m_selected_level] != null && Menu.this.m_level_button[Menu.this.m_selected_level].checkPoint(Menu.this.m_level_button_pos[Menu.this.m_selected_level], v, Menu.NEW_LEVEL_BLINK_DUR)) {
@@ -188,17 +177,6 @@ public class Menu {
                     evt.publish("paperTossPlaySound", "Crumple.wav");
                 } else if (Menu.this.m_exit != null && Menu.this.m_exit.checkPoint(Menu.EXIT_POS, v, Menu.NEW_LEVEL_BLINK_DUR)) {
                     evt.publish("onExitPressed");
-                } else if (Menu.this.m_privacy_btn != null && Menu.this.m_privacy_btn.checkPoint(Menu.PRIVACY_BTN_POS, v, Menu.NEW_LEVEL_BLINK_DUR)) {
-                    Globals.mainHandler.post(new Runnable() { // from class: com.bfs.papertoss.cpp.Menu.OnPtrUp.1
-                        @Override // java.lang.Runnable
-                        public void run() {
-                            if (Globals.m_activity != null) {
-                                Intent i2 = new Intent(Globals.m_activity, (Class<?>) BFSWebViewActivity.class);
-                                i2.putExtra(BFSWebViewActivity.EXTRA_PAGE_URL, "http://www.backflipstudios.com/support/privacy-policy-3");
-                                Globals.m_activity.startActivity(i2);
-                            }
-                        }
-                    });
                 }
                 Menu.this.m_selected_level = -1;
             }
@@ -255,8 +233,6 @@ public class Menu {
         this.m_scores = new Sprite(scores_image);
         this.m_exit = new Sprite(EXIT_FILENAME);
         setSound(sound);
-        this.m_papaya_btn = new Sprite("papaya_btn_main.png");
-        this.m_privacy_btn = new Sprite("privacy_btn_main.png");
     }
 
     void destroy() {
@@ -274,10 +250,6 @@ public class Menu {
         this.m_sound = null;
         Sprite.killSprite(this.m_exit);
         this.m_exit = null;
-        Sprite.killSprite(this.m_papaya_btn);
-        this.m_papaya_btn = null;
-        Sprite.killSprite(this.m_privacy_btn);
-        this.m_privacy_btn = null;
         this.m_destroy_state = this.m_state;
     }
 
@@ -290,8 +262,6 @@ public class Menu {
         setSound(this.m_sound_on);
         this.m_state = this.m_destroy_state;
         this.m_exit = new Sprite(EXIT_FILENAME);
-        this.m_papaya_btn = new Sprite("papaya_btn_main.png");
-        this.m_privacy_btn = new Sprite("privacy_btn_main.png");
     }
 
     void setBest(int level, int score) {
@@ -318,7 +288,7 @@ public class Menu {
             }
             for (int i2 = 0; i2 < LevelDefs.NUM_LEVELS; i2++) {
                 if (this.m_level_button[i2] != null) {
-                    this.m_level_button_time[i2] = (float) (r2[i2] + elapsed);
+                    this.m_level_button_time[i2] = (float) (m_level_button_time[i2] + elapsed);
                     if (MENU_POPUP_DUR != 0.0f) {
                         si = Math.max(Math.min((this.m_level_button_time[i2] - this.m_level_button_delay[i2]) / MENU_POPUP_DUR, NEW_LEVEL_BLINK_DUR), 0.0f);
                     } else {
@@ -348,7 +318,6 @@ public class Menu {
                     this.m_level_score[i].draw(this.m_level_score_pos[i].plus(o), s, r, this.m_scores_color);
                 }
             }
-            this.m_privacy_btn.draw(PRIVACY_BTN_POS.plus(o), s, r, this.m_privacy_btn_color);
         } catch (Exception e) {
             HashMap<String, String> map = new HashMap<>();
             map.put("Trace", PaperTossApplication.getFirstLineOfException(e));

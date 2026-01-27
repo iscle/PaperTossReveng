@@ -7,6 +7,7 @@ import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
+
 import java.util.HashMap;
 
 /* loaded from: classes.dex */
@@ -65,7 +66,7 @@ public class ScoreMenu {
         }
     }
 
-    public ScoreMenu() throws Throwable {
+    public ScoreMenu() {
         SCORE_COLOR = new v4f(0.0f, 1.0f, 0.0f, 1.0f);
         Evt evt = Evt.getInstance();
         evt.subscribe("onPtrUp", this.onPtrUp);
