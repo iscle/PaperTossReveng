@@ -1,17 +1,15 @@
 package com.bfs.papertoss.platform;
 
 import android.util.Log;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class SaveData {
     private static final String DEFAULT_GROUP = "DEFAULT_GROUP";
     private static final String OBFUSCATED = "OBFUSCATED";
@@ -112,7 +110,7 @@ public class SaveData {
         return (String) read((Object) def, key, group);
     }
 
-    public static void obfuscatedWrite(int n, String key) throws NoSuchAlgorithmException {
+    public static void obfuscatedWrite(int n, String key) {
         int time = (int) System.currentTimeMillis();
         String hash = getSHA(n + "-" + time);
         write(Integer.valueOf(n), key, OBFUSCATED);
@@ -120,7 +118,7 @@ public class SaveData {
         write(hash, key + "hash", OBFUSCATED);
     }
 
-    public static int obfuscatedRead(int def, String key) throws NoSuchAlgorithmException {
+    public static int obfuscatedRead(int def, String key) {
         int n = read(0, key, OBFUSCATED);
         int time = read(0, key + "modifier", OBFUSCATED);
         String hash = read("", key + "hash", OBFUSCATED);
@@ -153,7 +151,7 @@ public class SaveData {
         return getGroup(group).containsKey(key);
     }
 
-    public static String getSHA(String text) throws NoSuchAlgorithmException {
+    public static String getSHA(String text) {
         try {
             String text2 = text + BUCKETS[Math.abs(text.hashCode()) % BUCKETS.length];
             MessageDigest md = MessageDigest.getInstance("SHA");

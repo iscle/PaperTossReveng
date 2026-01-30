@@ -2,9 +2,8 @@ package com.bfs.papertoss.platform;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Evt {
     public static final String DEFAULT_EVENT = "DEFAULT_EVENT";
     private static Evt m_instance = null;
@@ -55,9 +54,7 @@ public class Evt {
         synchronized (this.m_listeners) {
             if (this.m_listeners.containsKey(event_name)) {
                 ArrayList<EvtListener> list = this.m_listeners.get(event_name);
-                Iterator i$ = list.iterator();
-                while (i$.hasNext()) {
-                    EvtListener listener = (EvtListener) i$.next();
+                for (EvtListener listener : list) {
                     listener.run(object);
                 }
             }

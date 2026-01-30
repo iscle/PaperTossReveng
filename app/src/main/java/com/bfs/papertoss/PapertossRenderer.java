@@ -7,11 +7,10 @@ import com.bfs.papertoss.cpp.Papertoss;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.platform.Util;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class PapertossRenderer implements GLSurfaceView.Renderer {
     private static final String TAG = "PapertossRenderer";
     double m_time = Util.getTime();

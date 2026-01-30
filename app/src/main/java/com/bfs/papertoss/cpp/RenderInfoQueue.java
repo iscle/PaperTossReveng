@@ -3,7 +3,7 @@ package com.bfs.papertoss.cpp;
 import android.util.Log;
 import com.bfs.papertoss.cpp.Level;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class RenderInfoQueue {
     private Level.RenderInfo m_first = null;
     private int m_size = 0;

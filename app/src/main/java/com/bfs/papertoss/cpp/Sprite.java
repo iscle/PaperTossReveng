@@ -8,7 +8,7 @@ import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
 import java.nio.FloatBuffer;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Sprite {
     FloatBuffer[] m_buffers;
     int m_current_frame;

@@ -8,10 +8,9 @@ import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
-
 import java.util.HashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class ScoreMenu {
     static v4f SCORE_COLOR = null;
     static final String SCORE_FONT = "zerothre";

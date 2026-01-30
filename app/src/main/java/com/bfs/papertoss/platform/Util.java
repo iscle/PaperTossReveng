@@ -9,17 +9,15 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.Log;
-
-import com.bfs.papertoss.vector.v4f;
 import com.iscle.papertoss.R;
-
+import com.bfs.papertoss.vector.v4f;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Util {
     static long start_time = System.nanoTime();
     static int m_requires_pot = -1;
@@ -34,7 +32,7 @@ public class Util {
         return true;
     }
 
-    public static boolean requiresPowerOfTwo() throws IllegalArgumentException {
+    public static boolean requiresPowerOfTwo() {
         String result;
         String result2;
         if (m_requires_pot != -1) {
@@ -62,8 +60,7 @@ public class Util {
         try {
             ActivityManager am = (ActivityManager) Globals.m_activity.getSystemService(Context.ACTIVITY_SERVICE);
             ConfigurationInfo info = am.getDeviceConfigurationInfo();
-            Class c = info.getClass();
-            Field f = c.getField("reqGlEsVersion");
+            Field f = info.getClass().getField("reqGlEsVersion");
             int i = f.getInt(info);
             version = String.format("%X", Integer.valueOf(i));
         } catch (Exception e) {

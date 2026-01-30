@@ -1,5 +1,6 @@
 package com.bfs.papertoss.cpp;
 
+import android.content.Intent;
 import com.bfs.papertoss.PaperTossApplication;
 import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
@@ -8,10 +9,9 @@ import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
-
 import java.util.HashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Menu {
     private static final int ACTIVE = 1;
     static v4f EXIT_COLOR = null;
@@ -277,7 +277,7 @@ public class Menu {
         if (this.m_state == 1) {
             if (this.m_new_level >= 0) {
                 if (this.m_new_level != this.m_selected_level) {
-                    this.m_new_level_timer = (float) (this.m_new_level_timer - elapsed);
+                    this.m_new_level_timer = (float) (((double) this.m_new_level_timer) - elapsed);
                     while (this.m_new_level_timer <= 0.0f) {
                         this.m_new_level_timer += NEW_LEVEL_BLINK_DUR;
                     }
@@ -289,7 +289,8 @@ public class Menu {
             }
             for (int i2 = 0; i2 < LevelDefs.NUM_LEVELS; i2++) {
                 if (this.m_level_button[i2] != null) {
-                    this.m_level_button_time[i2] = (float) (m_level_button_time[i2] + elapsed);
+                    float[] fArr = this.m_level_button_time;
+                    fArr[i2] = (float) (((double) fArr[i2]) + elapsed);
                     if (MENU_POPUP_DUR != 0.0f) {
                         si = Math.max(Math.min((this.m_level_button_time[i2] - this.m_level_button_delay[i2]) / MENU_POPUP_DUR, NEW_LEVEL_BLINK_DUR), 0.0f);
                     } else {

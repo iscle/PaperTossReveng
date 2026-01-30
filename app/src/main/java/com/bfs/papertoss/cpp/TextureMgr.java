@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class TextureMgr {
     ConcurrentHashMap<String, TextureInfo> m_textures = new ConcurrentHashMap<>();
 

@@ -13,7 +13,7 @@ import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v4f;
 import java.io.IOException;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Texture {
     int m_components;
     public int m_id;
@@ -127,7 +127,7 @@ public class Texture {
         return this.m_pot_size;
     }
 
-    /* renamed from: com.bfs.papertoss.cpp.Texture$1, reason: invalid class name */
+    /* JADX INFO: renamed from: com.bfs.papertoss.cpp.Texture$1, reason: invalid class name */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$android$graphics$Bitmap$Config = new int[Bitmap.Config.values().length];
 

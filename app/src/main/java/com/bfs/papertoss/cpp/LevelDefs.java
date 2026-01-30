@@ -5,10 +5,9 @@ import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
-
 import java.lang.reflect.Array;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class LevelDefs {
     public static final int AIRPORT = 3;
     public static final int BASEMENT = 4;

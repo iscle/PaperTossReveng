@@ -2,13 +2,11 @@ package com.bfs.papertoss.platform;
 
 import android.content.Context;
 import android.os.Handler;
-
 import com.bfs.papertoss.PaperTossActivity;
 import com.bfs.papertoss.cpp.TextureMgr;
-
 import javax.microedition.khronos.opengles.GL10;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Globals {
     public static boolean HI_RES;
     public static float SCALE_FACTOR;

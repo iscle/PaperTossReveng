@@ -6,18 +6,16 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
-
 import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.platform.SaveData;
 import com.bfs.papertoss.platform.SoundMgr;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class PaperTossApplication extends Application {
     private static final String TAG = "PaperTossApplication";
     private static PaperTossApplication m_instance = null;

@@ -1,6 +1,6 @@
 package com.bfs.papertoss.platform;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Config {
     public static final float ADJUSTED_ORTHO_WIDTH = 294.25287f;
     public static final float BACKGROUND_DEPTH = 449.9f;

@@ -10,7 +10,7 @@ import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.vector.v2f;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class PapertossGLSurfaceView extends GLSurfaceView {
     private Evt evt;
     private PapertossRenderer renderer;
@@ -52,11 +52,14 @@ public class PapertossGLSurfaceView extends GLSurfaceView {
                     break;
             }
             final String finalEventName = eventName;
-            queueEvent(() -> {
-                try {
-                    PapertossGLSurfaceView.this.evt.publish(finalEventName, point);
-                } catch (Exception e) {
-                    PaperTossApplication.logErrorWithFlurry("onTouchEvent", e, "PapertossGLSurfaceView");
+            queueEvent(new Runnable() { // from class: com.bfs.papertoss.PapertossGLSurfaceView.1
+                @Override // java.lang.Runnable
+                public void run() {
+                    try {
+                        PapertossGLSurfaceView.this.evt.publish(finalEventName, point);
+                    } catch (Exception e) {
+                        PaperTossApplication.logErrorWithFlurry("onTouchEvent", e, "PapertossGLSurfaceView");
+                    }
                 }
             });
         } catch (Exception e1) {

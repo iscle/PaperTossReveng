@@ -9,14 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
 import com.bfs.papertoss.cpp.Papertoss;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
 import com.bfs.papertoss.platform.Globals;
 import com.iscle.papertoss.R;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class PaperTossActivity extends Activity {
     private static final String TAG = "PaperTossActivity";
     private ExitPressed exitPressed;

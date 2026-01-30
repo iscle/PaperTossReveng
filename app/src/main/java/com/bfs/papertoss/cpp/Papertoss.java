@@ -1,5 +1,6 @@
 package com.bfs.papertoss.cpp;
 
+import com.bfs.papertoss.cpp.LevelDefs;
 import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
@@ -9,7 +10,7 @@ import com.bfs.papertoss.platform.Util;
 import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v3f;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Papertoss {
     static final float TRANSITION_SPEED = 960.0f;
     static GotoLevel gotoLevel;
@@ -228,20 +229,20 @@ public class Papertoss {
                     if (offset.y == -1.0f) {
                         offset.y = 0.0f;
                     } else {
-                        offset.x = (float) (offset.x - (TRANSITION_SPEED * elapsed));
+                        v2f v2fVar = offset;
+                        v2fVar.x = (float) (((double) v2fVar.x) - (960.0d * elapsed));
                     }
                     if ((offset.x <= -320.0f && !Globals.HI_RES) || (offset.x <= -294.25f && Globals.HI_RES)) {
                         if (state == GameState.MENU_TO_SCORE) {
                             state = GameState.SCORE;
                             Globals.texture_mgr.cleanup();
                             score_menu.activate();
-                            break;
                         } else if (state == GameState.MENU_TO_LEVEL) {
                             state = GameState.LEVEL;
                             Globals.texture_mgr.cleanup();
                             level.activate();
-                            break;
                         }
+                        break;
                     }
                     break;
                 case 6:
@@ -249,20 +250,20 @@ public class Papertoss {
                     if (offset.y == -1.0f) {
                         offset.y = 0.0f;
                     } else {
-                        offset.x = (float) (offset.x + (TRANSITION_SPEED * elapsed));
+                        v2f v2fVar2 = offset;
+                        v2fVar2.x = (float) (((double) v2fVar2.x) + (960.0d * elapsed));
                     }
                     if (offset.x >= 0.0f) {
                         state = GameState.MENU;
                         Globals.texture_mgr.cleanup();
                         menu.activate();
-                        break;
                     }
                     break;
             }
         }
     }
 
-    /* renamed from: com.bfs.papertoss.cpp.Papertoss$1, reason: invalid class name */
+    /* JADX INFO: renamed from: com.bfs.papertoss.cpp.Papertoss$1, reason: invalid class name */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState = new int[GameState.values().length];
 

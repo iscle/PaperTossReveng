@@ -4,13 +4,11 @@ import android.media.AsyncPlayer;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
-
 import com.iscle.papertoss.R;
-
 import java.io.IOException;
 import java.util.HashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class SoundMgr {
     AsyncPlayer asyncPlayer;
     BackgroundSound backgroundSound;
@@ -81,7 +79,7 @@ public class SoundMgr {
         }
 
         @Override // com.bfs.papertoss.platform.EvtListener
-        public void run(Object object) throws IllegalStateException {
+        public void run(Object object) {
             String filename = ("sounds/" + ((String) object)).replace(".mp3", ".OGG");
             int sound_id = 0;
             if (filename.contains("OfficeNoise")) {

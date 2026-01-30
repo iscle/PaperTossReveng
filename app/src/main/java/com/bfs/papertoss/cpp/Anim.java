@@ -3,7 +3,7 @@ package com.bfs.papertoss.cpp;
 import com.bfs.papertoss.platform.Util;
 import com.bfs.papertoss.vector.v3f;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Anim {
     int m_count;
     float m_duration;

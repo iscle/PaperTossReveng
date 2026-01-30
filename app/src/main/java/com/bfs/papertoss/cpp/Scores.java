@@ -2,7 +2,7 @@ package com.bfs.papertoss.cpp;
 
 import com.bfs.papertoss.platform.SaveData;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Scores {
     private static String keyForLevel(int levelIndex) {
         return "level_" + levelIndex + "_best";
@@ -16,21 +16,12 @@ public class Scores {
     }
 
     public static void saveBest(int score, int levelIndex) {
-        try {
-            SaveData.obfuscatedWrite(score, keyForLevel(levelIndex));
-            SaveData.save();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SaveData.obfuscatedWrite(score, keyForLevel(levelIndex));
+        SaveData.save();
     }
 
     public static int readBest(int levelIndex) {
-        try {
-            return SaveData.obfuscatedRead(0, keyForLevel(levelIndex));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
+        return SaveData.obfuscatedRead(0, keyForLevel(levelIndex));
     }
 
     public static void saveSubmitted(int score, int levelIndex) {

@@ -11,11 +11,10 @@ import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
-
 import java.lang.reflect.Array;
 import java.util.HashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Level {
     static final float ARROW_OFFSET = 56.0f;
     static final float ARROW_SPEED = 3.0f;
@@ -231,9 +230,9 @@ public class Level {
                         dir = Level.this.m_move_count != 0 ? Level.this.m_move_accum.dividedBy(Level.this.m_move_count) : new v2f(0.0f, 0.0f);
                     } else {
                         v2f dir2 = new v2f(0.0f, Level.UNLOCKED_SCALE);
-                        dir = dir2.rotated((Level.this.CONST_ROT * 3.141592653589793d) / 180.0d);
+                        dir = dir2.rotated((((double) Level.this.CONST_ROT) * 3.141592653589793d) / 180.0d);
                     }
-                    if (dir.length() > Level.MIN_FLICK_DIST && Util.getTime() - Level.this.m_swipe_time <= 1.0d) {
+                    if (dir.length() > Level.MIN_FLICK_DIST && Util.getTime() - ((double) Level.this.m_swipe_time) <= 1.0d) {
                         dir.normalize();
                         Level.this.m_ball_time = 0.0f;
                         Level.this.m_arrow_rot = -(Util.degrees(v2f.getNegativeRotation(dir)) + 90.0f);
@@ -792,10 +791,10 @@ public class Level {
                 this.m_wait_time -= elapsed;
                 if (this.m_wait_time <= 0.0f) {
                     this.m_state = State.WAIT;
-                    break;
                 } else {
                     return;
                 }
+                break;
             case WAIT:
                 break;
             default:

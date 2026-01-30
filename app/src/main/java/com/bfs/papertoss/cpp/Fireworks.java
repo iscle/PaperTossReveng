@@ -7,7 +7,7 @@ import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Fireworks {
     static final float FW_DUR = 1.1333333f;
     static final float FW_WAIT_DELAY = 0.25f;
@@ -80,7 +80,7 @@ public class Fireworks {
                 Firework fw = Fireworks.fireworks[0];
                 while (fw.scale != 0.0f) {
                     if (fw.wait <= 0.0f) {
-                        fw.wait = (float) (fw.wait - elapsed);
+                        fw.wait = (float) (((double) fw.wait) - elapsed);
                         if (Math.abs(fw.wait) >= 0.56666666f) {
                             Sprite.killSprite(fw.sprite);
                             fw.wait = Fireworks.FW_NO_WAIT;
@@ -88,7 +88,7 @@ public class Fireworks {
                             fw.sprite.update((float) elapsed);
                         }
                     } else {
-                        fw.wait = (float) (fw.wait - elapsed);
+                        fw.wait = (float) (((double) fw.wait) - elapsed);
                         if (fw.wait <= 0.0f) {
                             fw.wait = 0.0f;
                         }
@@ -121,7 +121,7 @@ public class Fireworks {
         }
     }
 
-    public static void initializeFireworks() throws Throwable {
+    public static void initializeFireworks() {
         if (m_instance == null) {
             m_instance = new Fireworks();
         }
