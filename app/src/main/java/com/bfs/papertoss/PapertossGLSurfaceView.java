@@ -10,23 +10,21 @@ import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.vector.v2f;
 
-/* JADX INFO: loaded from: classes.dex */
 public class PapertossGLSurfaceView extends GLSurfaceView {
-    private Evt evt;
-    private PapertossRenderer renderer;
+    private static final String TAG = "PapertossGLSurfaceView";
+    private final Evt evt;
 
     public PapertossGLSurfaceView(Context context) {
         super(context);
-        this.renderer = new PapertossRenderer();
-        setRenderer(this.renderer);
+        setRenderer(new PapertossRenderer());
         this.evt = Evt.getInstance();
     }
 
-    @Override // android.view.View
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float x;
         try {
             float x2 = event.getX();
+            float x;
             float y = Globals.SURFACE_H - event.getY();
             if (Globals.HI_RES) {
                 x = Globals.VIEWPORT_X + Config.ORTHO_ADJUSTMENT_F + ((Config.ADJUSTED_ORTHO_WIDTH / Globals.VIEWPORT_W) * x2);
@@ -37,33 +35,30 @@ public class PapertossGLSurfaceView extends GLSurfaceView {
             String eventName = "";
             int action = event.getAction();
             switch (action) {
-                case 0:
+                case MotionEvent.ACTION_DOWN:
                     eventName = "onPtrDown";
                     break;
-                case 1:
-                case 3:
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
                     eventName = "onPtrUp";
                     break;
-                case 2:
+                case MotionEvent.ACTION_MOVE:
                     eventName = "onPtrMove";
                     break;
                 default:
-                    Log.e("BFS", String.format("Something very weird is up with touch events: %X", Integer.valueOf(action)));
+                    Log.e("BFS", String.format("Something very weird is up with touch events: %X", action));
                     break;
             }
             final String finalEventName = eventName;
-            queueEvent(new Runnable() { // from class: com.bfs.papertoss.PapertossGLSurfaceView.1
-                @Override // java.lang.Runnable
-                public void run() {
-                    try {
-                        PapertossGLSurfaceView.this.evt.publish(finalEventName, point);
-                    } catch (Exception e) {
-                        PaperTossApplication.logErrorWithFlurry("onTouchEvent", e, "PapertossGLSurfaceView");
-                    }
+            queueEvent(() -> {
+                try {
+                    PapertossGLSurfaceView.this.evt.publish(finalEventName, point);
+                } catch (Exception e) {
+                    Log.e(TAG, "onTouchEvent: ", e);
                 }
             });
-        } catch (Exception e1) {
-            PaperTossApplication.logErrorWithFlurry("onTouchEvent", e1, "PapertossGLSurfaceView");
+        } catch (Exception e) {
+            Log.e(TAG, "onTouchEvent: ", e);
         }
         try {
             Thread.sleep(20L);

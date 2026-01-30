@@ -1,9 +1,7 @@
 package com.bfs.papertoss.cpp;
 
-import com.bfs.papertoss.platform.Util;
 import com.bfs.papertoss.vector.v3f;
 
-/* JADX INFO: loaded from: classes.dex */
 public class Anim {
     int m_count;
     float m_duration;
@@ -29,12 +27,11 @@ public class Anim {
         float i = Math.min(this.m_elapsed / this.m_duration, 1.0f);
         int s = Math.min((int) ((this.m_count - 1) * i), this.m_count - 2);
         int e = s + 1;
-        float si = s / (this.m_count - 1);
-        float ei = e / (this.m_count - 1);
+        float si = (float) s / (this.m_count - 1);
+        float ei = (float) e / (this.m_count - 1);
         float d = i - si;
         float td = ei - si;
         float li = d / td;
-        Util.ASSERT(li >= 0.0f && li <= 1.0f);
         v3f result = this.m_frames[e].minus(this.m_frames[s]);
         return this.m_frames[s].plus(result.times(li));
     }

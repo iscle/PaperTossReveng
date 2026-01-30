@@ -1,6 +1,7 @@
 package com.bfs.papertoss.cpp;
 
-import com.bfs.papertoss.PaperTossApplication;
+import android.util.Log;
+
 import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
@@ -8,10 +9,9 @@ import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
-import java.util.HashMap;
 
-/* JADX INFO: loaded from: classes.dex */
 public class ScoreMenu {
+    private static final String TAG = "ScoreMenu";
     static v4f SCORE_COLOR = null;
     static final String SCORE_FONT = "zerothre";
     static final int SCORE_FONT_SIZE = 24;
@@ -42,10 +42,7 @@ public class ScoreMenu {
     }
 
     private class OnPtrUp implements EvtListener {
-        private OnPtrUp() {
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object o) {
             if (ScoreMenu.this.m_state == 1) {
                 v2f v = (v2f) o;
@@ -58,7 +55,7 @@ public class ScoreMenu {
                 for (int i = 0; i < LevelDefs.NUM_LEVELS; i++) {
                     if (!ScoreMenu.this.m_name_pos[i].equalsZero() && Sprite.pointInRect(v, new v2f(ScoreMenu.this.m_name_pos[i]), ScoreMenu.this.m_name_size[i])) {
                         evt.publish("paperTossPlaySound", "Computer.wav");
-                        evt.publish("showScores", Integer.valueOf(i));
+                        evt.publish("showScores", i);
                         return;
                     }
                 }
@@ -131,8 +128,7 @@ public class ScoreMenu {
                 }
             }
         } catch (Exception e) {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("Trace", PaperTossApplication.getFirstLineOfException(e));
+            Log.e(TAG, "render: ", e);
         }
     }
 }

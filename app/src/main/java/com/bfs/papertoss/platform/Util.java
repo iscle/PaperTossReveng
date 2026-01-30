@@ -4,33 +4,19 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Build;
-import android.util.Log;
-import com.iscle.papertoss.R;
-import com.bfs.papertoss.vector.v4f;
+
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 
-/* JADX INFO: loaded from: classes.dex */
 public class Util {
     static long start_time = System.nanoTime();
     static int m_requires_pot = -1;
-
-    public static void ASSERT(boolean b) {
-    }
-
-    public static void ASSERT(Object o) {
-    }
-
-    public static boolean checkGL() {
-        return true;
-    }
 
     public static boolean requiresPowerOfTwo() {
         String result;
@@ -97,22 +83,10 @@ public class Util {
         return original;
     }
 
-    public static Bitmap loadFontFileText(String font, int glyphOffset, String text, int fontSize, v4f color, v4f v4f, int outline, float fill, int x, int y, int x2, int y2, int components) {
-        Log.i("BFS", "Auto-generated method stub", new Exception());
-        return BitmapFactory.decodeResource(Globals.m_context.getResources(), R.drawable.pticon);
-    }
-
     public static FloatBuffer getFloatBufferFromFloatArray(float[] array) {
         ByteBuffer tempBuffer = ByteBuffer.allocateDirect(array.length * 4);
         tempBuffer.order(ByteOrder.nativeOrder());
         FloatBuffer buffer = tempBuffer.asFloatBuffer();
-        buffer.put(array);
-        buffer.position(0);
-        return buffer;
-    }
-
-    public static ByteBuffer getByteBufferFromByteArray(byte[] array) {
-        ByteBuffer buffer = ByteBuffer.allocateDirect(array.length);
         buffer.put(array);
         buffer.position(0);
         return buffer;

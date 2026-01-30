@@ -9,13 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
 import com.bfs.papertoss.cpp.Papertoss;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
 import com.bfs.papertoss.platform.Globals;
 import com.iscle.papertoss.R;
 
-/* JADX INFO: loaded from: classes.dex */
 public class PaperTossActivity extends Activity {
     private static final String TAG = "PaperTossActivity";
     private ExitPressed exitPressed;
@@ -86,10 +86,9 @@ public class PaperTossActivity extends Activity {
                 @Override // java.lang.Runnable
                 public void run() {
                     try {
-                        Papertoss.deactiviate();
                         Papertoss.shutdown();
                     } catch (Exception e) {
-                        PaperTossApplication.logErrorWithFlurry("onPause", e, "PaperToss");
+                        Log.e(TAG, "onPause: ", e);
                     }
                 }
             });

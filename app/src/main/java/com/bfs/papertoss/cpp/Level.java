@@ -1,6 +1,7 @@
 package com.bfs.papertoss.cpp;
 
-import com.bfs.papertoss.PaperTossApplication;
+import android.util.Log;
+
 import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
@@ -11,11 +12,11 @@ import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
-import java.lang.reflect.Array;
-import java.util.HashMap;
 
-/* JADX INFO: loaded from: classes.dex */
+import java.lang.reflect.Array;
+
 public class Level {
+    private static final String TAG = "Level";
     static final float ARROW_OFFSET = 56.0f;
     static final float ARROW_SPEED = 3.0f;
     static final float BALL_CURVE = 240.0f;
@@ -166,10 +167,7 @@ public class Level {
     }
 
     private class OnPtrDown implements EvtListener {
-        private OnPtrDown() {
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             System.gc();
             v2f v = (v2f) object;
@@ -199,10 +197,7 @@ public class Level {
     }
 
     private class OnPtrMove implements EvtListener {
-        private OnPtrMove() {
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             if (Level.this.m_state == State.INPUT) {
                 if (Level.this.m_move_count == 0) {
@@ -217,10 +212,7 @@ public class Level {
     }
 
     private class OnPtrUp implements EvtListener {
-        private OnPtrUp() {
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             v2f dir;
             if (Level.this.m_state != State.NONE) {
@@ -252,10 +244,7 @@ public class Level {
     }
 
     private class OnLevelUnlocked implements EvtListener {
-        private OnLevelUnlocked() {
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             if (Level.this.m_state != State.NONE) {
                 Level.this.m_unlocked_time = 0.0f;
@@ -333,7 +322,7 @@ public class Level {
             this.m_hud_best = best;
             return;
         }
-        Util.ASSERT(this.m_score > this.m_best);
+//        Util.ASSERT(this.m_score > this.m_best);
         this.m_evt.publish("setBest", Integer.valueOf(new_best));
         this.m_best = this.m_score;
         Sprite.killSprite(this.m_hud_best_update);
@@ -622,7 +611,7 @@ public class Level {
                 this.m_hud_level_unlocked = new Sprite(UNLOCKED_FONT_SIZE, -29, "fawn", "Level Unlocked", new v4f(MAX_FLICK_TIME, MAX_FLICK_TIME, MAX_FLICK_TIME, MAX_FLICK_TIME), 4);
             }
         } catch (Exception e) {
-            PaperTossApplication.logErrorWithFlurry("unDestroy_Level", e, "Level");
+            Log.e(TAG, "unDestroy_Level: ", e);
         }
     }
 
@@ -1005,8 +994,7 @@ public class Level {
                     ri.pos = shiftedPos;
                     ri.sprite.draw(ri.pos, ri.scale, ri.rot, ri.color);
                 } catch (Exception e) {
-                    HashMap<String, String> map = new HashMap<>();
-                    map.put("Trace", PaperTossApplication.getFirstLineOfException(e));
+                    Log.e(TAG, "render: ", e);
                     return;
                 }
             }

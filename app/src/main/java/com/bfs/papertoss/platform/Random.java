@@ -1,6 +1,5 @@
 package com.bfs.papertoss.platform;
 
-/* JADX INFO: loaded from: classes.dex */
 public class Random {
     public static int randomi(int low, int high) {
         int randi = (int) (Math.random() * 2.147483647E9d);
@@ -9,11 +8,5 @@ public class Random {
 
     public static float randomf(float low, float high) {
         return (float) ((Math.random() * ((double) (high - low))) + ((double) low));
-    }
-
-    public static void main(String[] args) {
-        while (true) {
-            System.out.println(randomf(1.0f, 2.0f));
-        }
     }
 }

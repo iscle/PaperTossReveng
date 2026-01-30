@@ -1,23 +1,19 @@
 package com.bfs.papertoss.platform;
 
-import android.media.AsyncPlayer;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
+
 import com.iscle.papertoss.R;
+
 import java.io.IOException;
 import java.util.HashMap;
 
-/* JADX INFO: loaded from: classes.dex */
 public class SoundMgr {
-    AsyncPlayer asyncPlayer;
     BackgroundSound backgroundSound;
     PlaySound playSound;
     SetSound setSound;
     public static boolean m_sound = true;
-    public static int m_background_stread_id = -1;
-    int m_current_background = -1;
-    String current_background_filename = new String();
     MediaPlayer m_player = null;
     private String m_current_background_sound = "";
     SoundPool soundPool = new SoundPool(5, 3, 0);
@@ -41,7 +37,7 @@ public class SoundMgr {
                     if (!filename.contains(".raw")) {
                         String filename2 = "sounds/" + filename;
                         int id = this.soundPool.load(Globals.m_context.getAssets().openFd(filename2), 1);
-                        this.map.put(filename2, Integer.valueOf(id));
+                        this.map.put(filename2, id);
                     }
                 } catch (Exception e) {
                     Log.d("BFS", "Could not pre-load sound: " + filename, e);
@@ -53,34 +49,28 @@ public class SoundMgr {
     }
 
     private class PlaySound implements EvtListener {
-        private PlaySound() {
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             if (SoundMgr.m_sound) {
-                String filename = ("sounds/" + ((String) object)).replace(".wav", ".OGG");
+                String filename = ("sounds/" + object).replace(".wav", ".OGG");
                 if (!SoundMgr.this.map.containsKey(filename)) {
                     try {
                         int id = SoundMgr.this.soundPool.load(Globals.m_context.getAssets().openFd(filename), 1);
-                        SoundMgr.this.map.put(filename, Integer.valueOf(id));
+                        SoundMgr.this.map.put(filename, id);
                     } catch (IOException e) {
                         Log.d("BFS", "Could not lazily-load sound: " + filename, e);
                     }
                 }
-                int id2 = SoundMgr.this.map.get(filename).intValue();
+                int id2 = SoundMgr.this.map.get(filename);
                 SoundMgr.this.soundPool.play(id2, 1.0f, 1.0f, 1, 0, 1.0f);
             }
         }
     }
 
     private class BackgroundSound implements EvtListener {
-        private BackgroundSound() {
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
-            String filename = ("sounds/" + ((String) object)).replace(".mp3", ".OGG");
+            String filename = ("sounds/" + object).replace(".mp3", ".OGG");
             int sound_id = 0;
             if (filename.contains("OfficeNoise")) {
                 sound_id = R.raw.officenoise;
@@ -112,12 +102,9 @@ public class SoundMgr {
     }
 
     private class SetSound implements EvtListener {
-        private SetSound() {
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
-            SoundMgr.m_sound = ((Boolean) object).booleanValue();
+            SoundMgr.m_sound = (Boolean) object;
             if (SoundMgr.m_sound) {
                 SoundMgr.this.startBackgroundSound();
             } else {

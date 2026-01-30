@@ -1,7 +1,7 @@
 package com.bfs.papertoss.cpp;
 
-import android.content.Intent;
-import com.bfs.papertoss.PaperTossApplication;
+import android.util.Log;
+
 import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
@@ -9,10 +9,9 @@ import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v3f;
 import com.bfs.papertoss.vector.v4f;
-import java.util.HashMap;
 
-/* JADX INFO: loaded from: classes.dex */
 public class Menu {
+    private static final String TAG = "Menu";
     private static final int ACTIVE = 1;
     static v4f EXIT_COLOR = null;
     static final String EXIT_FILENAME = "Exit.png";
@@ -321,8 +320,7 @@ public class Menu {
                 }
             }
         } catch (Exception e) {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("Trace", PaperTossApplication.getFirstLineOfException(e));
+            Log.e(TAG, "render: ", e);
         }
     }
 

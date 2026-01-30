@@ -7,13 +7,14 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.opengl.GLUtils;
 import android.util.Log;
+
 import com.bfs.papertoss.platform.Globals;
 import com.bfs.papertoss.platform.Util;
 import com.bfs.papertoss.vector.v2i;
 import com.bfs.papertoss.vector.v4f;
+
 import java.io.IOException;
 
-/* JADX INFO: loaded from: classes.dex */
 public class Texture {
     int m_components;
     public int m_id;
@@ -30,17 +31,12 @@ public class Texture {
         Globals.GL.glGenTextures(1, int_array, 0);
         this.m_id = int_array[0];
         Globals.GL.glBindTexture(3553, this.m_id);
-        if (this.m_components != 4 && this.m_components == 1) {
-        }
-        if (this.m_components == 2) {
-        }
         GLUtils.texImage2D(3553, 0, data, 0);
         data.recycle();
         Globals.GL.glTexParameterf(3553, 10241, 9729.0f);
         Globals.GL.glTexParameterf(3553, 10240, 9729.0f);
         Globals.GL.glTexParameterf(3553, 10242, 33071.0f);
         Globals.GL.glTexParameterf(3553, 10243, 33071.0f);
-        Util.ASSERT(Util.checkGL());
     }
 
     public Texture(String filename) {
@@ -62,7 +58,7 @@ public class Texture {
         }
         v2i size = new v2i(data.getWidth(), data.getHeight());
         int components = getComponents(data);
-        Util.ASSERT(data != null);
+//        Util.ASSERT(data != null);
         if (data != null) {
             Bitmap data2 = Util.makePowerOfTwo(data);
             v2i pot_size = new v2i(data2.getWidth(), data2.getHeight());
@@ -96,14 +92,6 @@ public class Texture {
         this.m_name = text;
     }
 
-    public Texture(Bitmap data, int components, v2i size, v2i pot_size) {
-        this.m_id = 0;
-        this.m_components = 4;
-        this.m_size = new v2i(data.getWidth(), data.getHeight());
-        this.m_pot_size = this.m_size;
-        create(data, components, size, pot_size);
-    }
-
     public void delete() {
         if (this.m_id != 0) {
             int[] int_array = {this.m_id};
@@ -115,10 +103,6 @@ public class Texture {
         return this.m_id;
     }
 
-    public int components() {
-        return this.m_components;
-    }
-
     public v2i size() {
         return this.m_size;
     }
@@ -127,39 +111,15 @@ public class Texture {
         return this.m_pot_size;
     }
 
-    /* JADX INFO: renamed from: com.bfs.papertoss.cpp.Texture$1, reason: invalid class name */
-    static /* synthetic */ class AnonymousClass1 {
-        static final /* synthetic */ int[] $SwitchMap$android$graphics$Bitmap$Config = new int[Bitmap.Config.values().length];
-
-        static {
-            try {
-                $SwitchMap$android$graphics$Bitmap$Config[Bitmap.Config.ALPHA_8.ordinal()] = 1;
-            } catch (NoSuchFieldError e) {
-            }
-            try {
-                $SwitchMap$android$graphics$Bitmap$Config[Bitmap.Config.RGB_565.ordinal()] = 2;
-            } catch (NoSuchFieldError e2) {
-            }
-            try {
-                $SwitchMap$android$graphics$Bitmap$Config[Bitmap.Config.ARGB_4444.ordinal()] = 3;
-            } catch (NoSuchFieldError e3) {
-            }
-            try {
-                $SwitchMap$android$graphics$Bitmap$Config[Bitmap.Config.ARGB_8888.ordinal()] = 4;
-            } catch (NoSuchFieldError e4) {
-            }
-        }
-    }
-
     private int getComponents(Bitmap data) {
         Bitmap.Config config = data.getConfig();
-        switch (AnonymousClass1.$SwitchMap$android$graphics$Bitmap$Config[config.ordinal()]) {
-            case 1:
+        switch (config) {
+            case ALPHA_8:
                 return 1;
-            case 2:
+            case RGB_565:
                 return 3;
-            case 3:
-            case 4:
+            case ARGB_4444:
+            case ARGB_8888:
             default:
                 return 4;
         }

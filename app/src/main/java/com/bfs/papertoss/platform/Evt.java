@@ -3,9 +3,7 @@ package com.bfs.papertoss.platform;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/* JADX INFO: loaded from: classes.dex */
 public class Evt {
-    public static final String DEFAULT_EVENT = "DEFAULT_EVENT";
     private static Evt m_instance = null;
     private HashMap<String, ArrayList<EvtListener>> m_listeners;
 

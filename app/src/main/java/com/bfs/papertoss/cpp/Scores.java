@@ -2,7 +2,6 @@ package com.bfs.papertoss.cpp;
 
 import com.bfs.papertoss.platform.SaveData;
 
-/* JADX INFO: loaded from: classes.dex */
 public class Scores {
     private static String keyForLevel(int levelIndex) {
         return "level_" + levelIndex + "_best";
@@ -16,12 +15,12 @@ public class Scores {
     }
 
     public static void saveBest(int score, int levelIndex) {
-        SaveData.obfuscatedWrite(score, keyForLevel(levelIndex));
+        SaveData.write(score, keyForLevel(levelIndex));
         SaveData.save();
     }
 
     public static int readBest(int levelIndex) {
-        return SaveData.obfuscatedRead(0, keyForLevel(levelIndex));
+        return SaveData.read(0, keyForLevel(levelIndex));
     }
 
     public static void saveSubmitted(int score, int levelIndex) {

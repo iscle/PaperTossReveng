@@ -1,6 +1,7 @@
 package com.bfs.papertoss.cpp;
 
-import com.bfs.papertoss.cpp.LevelDefs;
+import android.annotation.SuppressLint;
+
 import com.bfs.papertoss.platform.Config;
 import com.bfs.papertoss.platform.Evt;
 import com.bfs.papertoss.platform.EvtListener;
@@ -10,7 +11,6 @@ import com.bfs.papertoss.platform.Util;
 import com.bfs.papertoss.vector.v2f;
 import com.bfs.papertoss.vector.v3f;
 
-/* JADX INFO: loaded from: classes.dex */
 public class Papertoss {
     static final float TRANSITION_SPEED = 960.0f;
     static GotoLevel gotoLevel;
@@ -20,7 +20,6 @@ public class Papertoss {
     static PostScore postScore;
     static SetBest setBest;
     static SetSound setSound;
-    private static boolean UNLOCK_ALL = false;
     static Menu menu = null;
     static ScoreMenu score_menu = null;
     public static Level level = null;
@@ -44,14 +43,13 @@ public class Papertoss {
     }
 
     static {
-        AnonymousClass1 anonymousClass1 = null;
-        setBest = new SetBest(anonymousClass1);
-        setSound = new SetSound(anonymousClass1);
-        postScore = new PostScore(anonymousClass1);
-        onTutorialShown = new OnTutorialShown(anonymousClass1);
-        gotoScores = new GotoScores(anonymousClass1);
-        gotoMenu = new GotoMenu(anonymousClass1);
-        gotoLevel = new GotoLevel(anonymousClass1);
+        setBest = new SetBest();
+        setSound = new SetSound();
+        postScore = new PostScore();
+        onTutorialShown = new OnTutorialShown();
+        gotoScores = new GotoScores();
+        gotoMenu = new GotoMenu();
+        gotoLevel = new GotoLevel();
     }
 
     static void unlockLevel(int i) {
@@ -62,16 +60,9 @@ public class Papertoss {
     }
 
     private static class SetBest implements EvtListener {
-        private SetBest() {
-        }
-
-        /* synthetic */ SetBest(AnonymousClass1 x0) {
-            this();
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object o) {
-            int score = ((Integer) o).intValue();
+            int score = (Integer) o;
             Papertoss.menu.setBest(Papertoss.current_level, score);
             Papertoss.score_menu.setBest(Papertoss.current_level, score);
             Scores.saveBest(score, Papertoss.current_level);
@@ -90,44 +81,23 @@ public class Papertoss {
     }
 
     private static class SetSound implements EvtListener {
-        private SetSound() {
-        }
-
-        /* synthetic */ SetSound(AnonymousClass1 x0) {
-            this();
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
-            boolean on = ((Boolean) object).booleanValue();
-            SaveData.write(Boolean.valueOf(on), "sound");
+            boolean on = (Boolean) object;
+            SaveData.write(on, "sound");
             SaveData.save();
         }
     }
 
     private static class PostScore implements EvtListener {
-        private PostScore() {
-        }
-
-        /* synthetic */ PostScore(AnonymousClass1 x0) {
-            this();
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             Scores.saveSubmitted(Scores.readBest(Papertoss.current_level), Papertoss.current_level);
         }
     }
 
     private static class OnTutorialShown implements EvtListener {
-        private OnTutorialShown() {
-        }
-
-        /* synthetic */ OnTutorialShown(AnonymousClass1 x0) {
-            this();
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             SaveData.write(true, "tutorial_shown");
             SaveData.save();
@@ -136,14 +106,7 @@ public class Papertoss {
     }
 
     private static class GotoScores implements EvtListener {
-        private GotoScores() {
-        }
-
-        /* synthetic */ GotoScores(AnonymousClass1 x0) {
-            this();
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             if (Papertoss.state == GameState.MENU) {
                 Papertoss.state = GameState.MENU_TO_SCORE;
@@ -154,14 +117,7 @@ public class Papertoss {
     }
 
     private static class GotoMenu implements EvtListener {
-        private GotoMenu() {
-        }
-
-        /* synthetic */ GotoMenu(AnonymousClass1 x0) {
-            this();
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             Evt evt = Evt.getInstance();
             evt.publish("setBackgroundSound", "OfficeNoise.mp3");
@@ -182,16 +138,10 @@ public class Papertoss {
     }
 
     private static class GotoLevel implements EvtListener {
-        private GotoLevel() {
-        }
-
-        /* synthetic */ GotoLevel(AnonymousClass1 x0) {
-            this();
-        }
-
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @SuppressLint("DefaultLocale")
+        @Override
         public void run(Object object) {
-            int lvl = ((Integer) object).intValue();
+            int lvl = (Integer) object;
             if (Papertoss.state == GameState.MENU) {
                 Papertoss.state = GameState.MENU_TO_LEVEL;
                 Papertoss.offset = new v2f(0.0f, -1.0f);
@@ -201,7 +151,6 @@ public class Papertoss {
                         Papertoss.level.destroy();
                     }
                     Papertoss.current_level = lvl;
-                    String.format("level_%d", Integer.valueOf(Papertoss.current_level));
                     int best = Scores.readBest(Papertoss.current_level);
                     int submitted = Scores.readSubmitted(Papertoss.current_level);
                     int basket = (Papertoss.highest_level - Papertoss.current_level) + 1;
@@ -214,18 +163,18 @@ public class Papertoss {
 
     public static void update(double elapsed) {
         if (!m_shutdown) {
-            switch (AnonymousClass1.$SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[state.ordinal()]) {
-                case 1:
+            switch (state) {
+                case MENU:
                     menu.update(elapsed);
                     break;
-                case 2:
+                case LEVEL:
                     level.update((float) elapsed);
                     break;
-                case 3:
+                case SCORE:
                     score_menu.update((float) elapsed);
                     break;
-                case 4:
-                case 5:
+                case MENU_TO_SCORE:
+                case MENU_TO_LEVEL:
                     if (offset.y == -1.0f) {
                         offset.y = 0.0f;
                     } else {
@@ -245,8 +194,8 @@ public class Papertoss {
                         break;
                     }
                     break;
-                case 6:
-                case 7:
+                case SCORE_TO_MENU:
+                case LEVEL_TO_MENU:
                     if (offset.y == -1.0f) {
                         offset.y = 0.0f;
                     } else {
@@ -263,56 +212,20 @@ public class Papertoss {
         }
     }
 
-    /* JADX INFO: renamed from: com.bfs.papertoss.cpp.Papertoss$1, reason: invalid class name */
-    static /* synthetic */ class AnonymousClass1 {
-        static final /* synthetic */ int[] $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState = new int[GameState.values().length];
-
-        static {
-            try {
-                $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[GameState.MENU.ordinal()] = 1;
-            } catch (NoSuchFieldError e) {
-            }
-            try {
-                $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[GameState.LEVEL.ordinal()] = 2;
-            } catch (NoSuchFieldError e2) {
-            }
-            try {
-                $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[GameState.SCORE.ordinal()] = 3;
-            } catch (NoSuchFieldError e3) {
-            }
-            try {
-                $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[GameState.MENU_TO_SCORE.ordinal()] = 4;
-            } catch (NoSuchFieldError e4) {
-            }
-            try {
-                $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[GameState.MENU_TO_LEVEL.ordinal()] = 5;
-            } catch (NoSuchFieldError e5) {
-            }
-            try {
-                $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[GameState.LEVEL_TO_MENU.ordinal()] = 6;
-            } catch (NoSuchFieldError e6) {
-            }
-            try {
-                $SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[GameState.SCORE_TO_MENU.ordinal()] = 7;
-            } catch (NoSuchFieldError e7) {
-            }
-        }
-    }
-
     public static void render() {
         if (!m_shutdown) {
-            switch (AnonymousClass1.$SwitchMap$com$bfs$papertoss$cpp$Papertoss$GameState[state.ordinal()]) {
-                case 1:
+            switch (state) {
+                case MENU:
                     menu.render(new v2f(0.0f, 0.0f));
                     break;
-                case 2:
+                case LEVEL:
                     level.render(new v2f(0.0f, 0.0f));
                     break;
-                case 3:
+                case SCORE:
                     score_menu.render(new v2f(0.0f, 0.0f));
                     break;
-                case 4:
-                case 7:
+                case MENU_TO_SCORE:
+                case SCORE_TO_MENU:
                     float ortho_width = 320.0f;
                     if (Globals.HI_RES) {
                         ortho_width = Config.ADJUSTED_ORTHO_WIDTH;
@@ -320,8 +233,8 @@ public class Papertoss {
                     menu.render(offset);
                     score_menu.render(offset.plus(new v2f(ortho_width, 0.0f)));
                     break;
-                case 5:
-                case 6:
+                case MENU_TO_LEVEL:
+                case LEVEL_TO_MENU:
                     float ortho_width2 = 320.0f;
                     if (Globals.HI_RES) {
                         ortho_width2 = Config.ADJUSTED_ORTHO_WIDTH;
@@ -363,7 +276,7 @@ public class Papertoss {
     }
 
     public static class SizeGL implements EvtListener {
-        @Override // com.bfs.papertoss.platform.EvtListener
+        @Override
         public void run(Object object) {
             Globals.GL.glMatrixMode(5889);
             Globals.GL.glLoadIdentity();
@@ -394,7 +307,6 @@ public class Papertoss {
         Globals.GL.glClear(16640);
         Globals.GL.glVertexPointer(2, 5126, 0, Util.getFloatBufferFromFloatArray(quad_verts));
         sizeGl.run(0);
-        Util.ASSERT(Util.checkGL());
         if (menu == null) {
             Evt evt = Evt.getInstance();
             evt.subscribe("sizeGl", sizeGl);
@@ -439,17 +351,6 @@ public class Papertoss {
         if (menu != null) {
             menu.activate();
         }
-    }
-
-    public static void deactiviate() {
-    }
-
-    public static int getBestScore() {
-        return Scores.readBest(current_level);
-    }
-
-    public static int getLevel() {
-        return current_level;
     }
 
     public static void setSound(boolean sound) {

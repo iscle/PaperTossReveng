@@ -1,11 +1,11 @@
 package com.bfs.papertoss.cpp;
 
 import com.bfs.papertoss.vector.v4f;
+
 import java.util.Collection;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/* JADX INFO: loaded from: classes.dex */
 public class TextureMgr {
     ConcurrentHashMap<String, TextureInfo> m_textures = new ConcurrentHashMap<>();
 

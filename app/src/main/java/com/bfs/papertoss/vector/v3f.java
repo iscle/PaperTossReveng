@@ -1,6 +1,5 @@
 package com.bfs.papertoss.vector;
 
-/* JADX INFO: loaded from: classes.dex */
 public class v3f {
     public float x;
     public float y;
